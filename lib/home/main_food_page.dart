@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/home/colors.dart';
 import 'package:food_app/widgets/big_text.dart';
+import 'package:food_app/widgets/small_text.dart';
+
+import 'food_page_body.dart';
 
 class MainFoodPage extends StatefulWidget {
   const MainFoodPage({Key? key}) : super(key: key);
@@ -18,13 +21,21 @@ class _MainFoodPageState extends State<MainFoodPage> {
         children: [
           Container(
             child: Container(
-              margin: EdgeInsets.only(top: 45, bottom: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 45, bottom: 15),
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
-                    children: [Bigtext(text: "Ahmedabad",color: AppColors.mainColor,), Text("data")],
+                    children: [
+                      BigText(text: "Ahmedabad", color: AppColors.mainColor),
+                      Row(
+                        children: [
+                          SmallText(text: "Sola", color: Colors.black54),
+                          const Icon(Icons.arrow_drop_down_rounded)
+                        ],
+                      )
+                    ],
                   ),
                   Center(
                     child: Container(
@@ -34,7 +45,7 @@ class _MainFoodPageState extends State<MainFoodPage> {
                         borderRadius: BorderRadius.circular(15),
                         color: AppColors.mainColor,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.search,
                         color: Colors.white,
                       ),
@@ -43,7 +54,8 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 ],
               ),
             ),
-          )
+          ),
+          FoodPageBody()
         ],
       ),
     );

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class Bigtext extends StatelessWidget {
+class BigText extends StatelessWidget {
   Color? color;
   final String text;
   double size;
   TextOverflow overflow;
 
-  Bigtext(
+  BigText(
       {Key? key,
       this.color = const Color(0xFF332d2b),
       required this.text,
@@ -19,6 +19,7 @@ class Bigtext extends StatelessWidget {
     return Text(
       text,
       overflow: overflow,
+      maxLines: 1,
       style: TextStyle(
           fontFamily: 'Roboto',
           color: color,
