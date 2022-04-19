@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/home/colors.dart';
+import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/small_text.dart';
 
@@ -16,22 +16,33 @@ class MainFoodPage extends StatefulWidget {
 class _MainFoodPageState extends State<MainFoodPage> {
   @override
   Widget build(BuildContext context) {
+    /*print("height: " + MediaQuery.of(context).size.height.toString());
+    print("screenHeight: " + Dimensions.screenHeight.toString());*/
+
     return Scaffold(
       body: Column(
         children: [
           Container(
+            padding: EdgeInsets.all(Dimensions.ratio * 10),
             child: Container(
-              margin: const EdgeInsets.only(top: 45, bottom: 15),
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: EdgeInsets.only(
+                  left: Dimensions.ratio * 20, right: Dimensions.ratio * 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
-                      BigText(text: "Ahmedabad", color: AppColors.mainColor),
+                      BigText(
+                        text: "Ahmedabad",
+                        color: AppColors.mainColor,
+                        size: Dimensions.ratio * 20,
+                      ),
                       Row(
                         children: [
-                          SmallText(text: "Sola", color: Colors.black54),
+                          SmallText(
+                              text: "Sola",
+                              color: Colors.black54,
+                              size: Dimensions.ratio * 12),
                           const Icon(Icons.arrow_drop_down_rounded)
                         ],
                       )
@@ -39,15 +50,17 @@ class _MainFoodPageState extends State<MainFoodPage> {
                   ),
                   Center(
                     child: Container(
-                      height: 45,
-                      width: 45,
+                      height: Dimensions.ratio * 45,
+                      width: Dimensions.ratio * 45,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.ratio * 15),
                         color: AppColors.mainColor,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.search,
                         color: Colors.white,
+                        size: Dimensions.ratio * 15,
                       ),
                     ),
                   )
@@ -55,7 +68,9 @@ class _MainFoodPageState extends State<MainFoodPage> {
               ),
             ),
           ),
-          FoodPageBody()
+          Expanded(child: SingleChildScrollView(
+            child: FoodPageBody(),
+          ))
         ],
       ),
     );

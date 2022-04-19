@@ -6,6 +6,8 @@ import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/icon_and_text_widget.dart';
 import 'package:food_app/widgets/small_text.dart';
 
+import '../utils/dimensions.dart';
+
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   var _currentPageValue = 0.0;
 
   double _scaleFactor = 0.8;
-  double _height = 220;
+  double _height = Dimensions.ratio * 220;
   double currScale = 1.0;
   double currTrans = 1.0;
   Matrix4 matrix = Matrix4.identity();
@@ -43,8 +45,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      // Slider Section
       Container(
-        height: 320,
+        height: Dimensions.ratio * 320,
         child: PageView.builder(
             controller: pageController,
             itemCount: 5,
@@ -52,17 +55,141 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               return _buildPageItem(position);
             }),
       ),
+      // DotIndicator Section
       DotsIndicator(
         dotsCount: 5,
         position: _currentPageValue,
         decorator: DotsDecorator(
           activeColor: AppColors.mainColor,
-          size: const Size.square(9.0),
-          activeSize: const Size(18.0, 9.0),
-          activeShape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          size: Size.square(Dimensions.ratio * 9.0),
+          activeSize: Size(Dimensions.ratio * 18.0, Dimensions.ratio * 9.0),
+          activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Dimensions.ratio * 5.0)),
         ),
       ),
+
+      Padding(
+        padding: EdgeInsets.only(
+            left: Dimensions.ratio * 30,
+            top: Dimensions.ratio * 10,
+            bottom: Dimensions.ratio * 10),
+        child: Row(
+          //crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+
+          children: [
+            BigText(text: "Popular",size: Dimensions.ratio*20),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.ratio * 10,
+                  top: Dimensions.ratio * 10,
+                  bottom: Dimensions.ratio * 5),
+              child: SmallText(text: "Restaurants",size: Dimensions.ratio*12),
+            ),
+          ],
+        ),
+      ),
+      // list of Shops Section
+      ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: 10,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.only(
+                  left: Dimensions.ratio * 20,
+                  right: Dimensions.ratio * 20,
+                  bottom: Dimensions.ratio * 20),
+              child: Row(
+                children:[
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: Dimensions.ratio * 110,
+                                top: Dimensions.ratio * 15,
+                                bottom: Dimensions.ratio * 15,
+                                right: Dimensions.ratio * 40),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BigText(
+                                    text: "World Famous Taj Hotel of Mumbai",size: Dimensions.ratio*20,),
+                                SizedBox(
+                                  height: Dimensions.ratio * 5,
+                                ),
+                                SmallText(text: "this is the dummy text",size: Dimensions.ratio*12),
+                                SizedBox(
+                                  height: Dimensions.ratio *10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    IconAndTextWidget(
+                                        icon: Icons.circle_sharp,
+                                        text: "Normal",
+                                        size: Dimensions.ratio * 15,
+                                        iconColor: AppColors.iconColor),
+                                    IconAndTextWidget(
+                                        icon: Icons.location_on,
+                                        text: "1.7km",
+                                        size: Dimensions.ratio * 15,
+                                        iconColor: AppColors.mainColor),
+                                    IconAndTextWidget(
+                                        icon: Icons.access_time_rounded,
+                                        text: "32min",
+                                        size: Dimensions.ratio * 15,
+                                        iconColor: AppColors.iconColor2)
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          margin: EdgeInsets.only(
+                              top: Dimensions.ratio * 10,
+                              bottom: Dimensions.ratio * 10,
+                              left: Dimensions.ratio * 20),
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Color(0xFFe8e8e8),
+                                  blurRadius: Dimensions.ratio * 5.0,
+                                  offset: Offset(Dimensions.ratio * -1,
+                                      Dimensions.ratio * 5)),
+                              BoxShadow(
+                                  color: Colors.white,
+                                  offset: Offset(Dimensions.ratio * -5,
+                                      Dimensions.ratio * 0))
+                            ],
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.ratio * 20),
+                              bottomRight:
+                                  Radius.circular(Dimensions.ratio * 20),
+                            ),
+                            color: Colors.white10,
+                          ),
+                        ),
+                        Container(
+                          height: Dimensions.ratio * 120,
+                          width: Dimensions.ratio * 120,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.ratio * 20),
+                              color: Colors.white30,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("assets/images/food.jpg"))),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          })
     ]);
   }
 
@@ -101,11 +228,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       child: Stack(
         children: [
           Container(
-            height: 220,
-            margin: const EdgeInsets.only(left: 10, right: 10),
+            height: Dimensions.ratio * 220,
+            margin: EdgeInsets.only(
+                left: Dimensions.ratio * 10, right: Dimensions.ratio * 10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: index.isEven ? const Color(0xFF69c5df) : const Color(0xFF9294cc),
+                borderRadius: BorderRadius.circular(Dimensions.ratio * 30),
+                color: index.isEven
+                    ? const Color(0xFF69c5df)
+                    : const Color(0xFF9294cc),
                 image: const DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage("assets/images/food5.jpg"))),
@@ -113,63 +243,86 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 120,
-              margin: const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+              height: Dimensions.ratio * 120,
+              margin: EdgeInsets.only(
+                  left: Dimensions.ratio * 30,
+                  right: Dimensions.ratio * 30,
+                  bottom: Dimensions.ratio * 30),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(Dimensions.ratio * 20),
                   color: Colors.white,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
                         color: Color(0xFFe8e8e8),
-                        blurRadius: 5.0,
-                        offset: Offset(-1, 5)),
-                    BoxShadow(color: Colors.white, offset: Offset(-5, 0))
+                        blurRadius: Dimensions.ratio * 5.0,
+                        offset: Offset(
+                            Dimensions.ratio * -1, Dimensions.ratio * 5)),
+                    BoxShadow(
+                        color: Colors.white,
+                        offset:
+                            Offset(Dimensions.ratio * -5, Dimensions.ratio * 0))
                   ]),
               child: Container(
-                padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BigText(text: "Chinese Veggie"),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Wrap(
-                            children: List.generate(
-                                5,
-                                (index) => Icon(Icons.star,
-                                    color: AppColors.mainColor, size: 15))),
-                        const SizedBox(width: 10),
-                        SmallText(text: "4.5"),
-                        const SizedBox(width: 10),
-                        SmallText(text: "1267"),
-                        const SizedBox(width: 10),
-                        SmallText(text: "comments"),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconAndTextWidget(
-                                icon: Icons.circle_sharp,
-                                text: "Normal",
-                                iconColor: AppColors.iconColor),
-                            IconAndTextWidget(
-                                icon: Icons.location_on,
-                                text: "1.7km",
-                                iconColor: AppColors.mainColor),
-                            IconAndTextWidget(
-                                icon: Icons.access_time_rounded,
-                                text: "32min",
-                                iconColor: AppColors.iconColor2)
-                          ],
-                        )
-                      ],
-                    )
-                ),
-              ),
+                  padding: EdgeInsets.only(
+                      top: Dimensions.ratio * 15,
+                      left: Dimensions.ratio * 15,
+                      right: Dimensions.ratio * 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BigText(
+                        text: "Chinese Veggie",
+                        size: Dimensions.ratio * 20,
+                      ),
+                      SizedBox(height: Dimensions.ratio * 10),
+                      Row(
+                        children: [
+                          Wrap(
+                              children: List.generate(
+                                  5,
+                                  (index) => Icon(Icons.star,
+                                      color: AppColors.mainColor,
+                                      size: Dimensions.ratio * 15))),
+                          SizedBox(width: Dimensions.ratio * 10),
+                          SmallText(
+                            text: "4.5",
+                            size: Dimensions.ratio * 12,
+                          ),
+                          SizedBox(width: Dimensions.ratio * 10),
+                          SmallText(
+                            text: "1267",
+                            size: Dimensions.ratio * 12,
+                          ),
+                          SizedBox(width: Dimensions.ratio * 10),
+                          SmallText(
+                              text: "comments", size: Dimensions.ratio * 12),
+                        ],
+                      ),
+                      SizedBox(height: Dimensions.ratio * 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconAndTextWidget(
+                              icon: Icons.circle_sharp,
+                              text: "Normal",
+                              size: Dimensions.ratio * 15,
+                              iconColor: AppColors.iconColor),
+                          IconAndTextWidget(
+                              icon: Icons.location_on,
+                              text: "1.7km",
+                              size: Dimensions.ratio * 15,
+                              iconColor: AppColors.mainColor),
+                          IconAndTextWidget(
+                              icon: Icons.access_time_rounded,
+                              text: "32min",
+                              size: Dimensions.ratio * 15,
+                              iconColor: AppColors.iconColor2)
+                        ],
+                      )
+                    ],
+                  )),
             ),
+          ),
         ],
       ),
     );
