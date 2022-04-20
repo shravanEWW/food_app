@@ -1,12 +1,12 @@
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_app/home/colors.dart';
+import 'package:food_app/widgets/app_column.dart';
 import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/icon_and_text_widget.dart';
 import 'package:food_app/widgets/small_text.dart';
 
-import '../utils/dimensions.dart';
+import '../../utils/dimensions.dart';
+import 'colors.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -54,6 +54,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             itemBuilder: (context, position) {
               return _buildPageItem(position);
             }),
+
       ),
       // DotIndicator Section
       DotsIndicator(
@@ -267,60 +268,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       top: Dimensions.ratio * 15,
                       left: Dimensions.ratio * 15,
                       right: Dimensions.ratio * 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BigText(
-                        text: "Chinese Veggie",
-                        size: Dimensions.ratio * 20,
-                      ),
-                      SizedBox(height: Dimensions.ratio * 10),
-                      Row(
-                        children: [
-                          Wrap(
-                              children: List.generate(
-                                  5,
-                                  (index) => Icon(Icons.star,
-                                      color: AppColors.mainColor,
-                                      size: Dimensions.ratio * 15))),
-                          SizedBox(width: Dimensions.ratio * 10),
-                          SmallText(
-                            text: "4.5",
-                            size: Dimensions.ratio * 12,
-                          ),
-                          SizedBox(width: Dimensions.ratio * 10),
-                          SmallText(
-                            text: "1267",
-                            size: Dimensions.ratio * 12,
-                          ),
-                          SizedBox(width: Dimensions.ratio * 10),
-                          SmallText(
-                              text: "comments", size: Dimensions.ratio * 12),
-                        ],
-                      ),
-                      SizedBox(height: Dimensions.ratio * 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconAndTextWidget(
-                              icon: Icons.circle_sharp,
-                              text: "Normal",
-                              size: Dimensions.ratio * 15,
-                              iconColor: AppColors.iconColor),
-                          IconAndTextWidget(
-                              icon: Icons.location_on,
-                              text: "1.7km",
-                              size: Dimensions.ratio * 15,
-                              iconColor: AppColors.mainColor),
-                          IconAndTextWidget(
-                              icon: Icons.access_time_rounded,
-                              text: "32min",
-                              size: Dimensions.ratio * 15,
-                              iconColor: AppColors.iconColor2)
-                        ],
-                      )
-                    ],
-                  )),
+                  child: AppColumn(text: "Chinese Food",)),
             ),
           ),
         ],
