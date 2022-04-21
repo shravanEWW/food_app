@@ -1,9 +1,11 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/controllers/product_controller.dart';
 import 'package:food_app/widgets/app_column.dart';
 import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/icon_and_text_widget.dart';
 import 'package:food_app/widgets/small_text.dart';
+import 'package:get/get.dart';
 
 import '../../utils/dimensions.dart';
 import 'colors.dart';
@@ -46,28 +48,31 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   Widget build(BuildContext context) {
     return Column(children: [
       // Slider Section
-      Container(
-        height: Dimensions.ratio * 320,
-        child: PageView.builder(
-            controller: pageController,
-            itemCount: 5,
-            itemBuilder: (context, position) {
-              return _buildPageItem(position);
-            }),
-
-      ),
+      GetBuilder<ProductController>(builder: (popularProduct) {
+        return Container(
+          height: Dimensions.ratio * 320,
+          child: PageView.builder(
+              controller: pageController,
+              itemCount: popularProduct.productList.length,
+              itemBuilder: (context, position) {
+                return _buildPageItem(position);
+              }),
+        );
+      }),
       // DotIndicator Section
-      DotsIndicator(
-        dotsCount: 5,
-        position: _currentPageValue,
-        decorator: DotsDecorator(
-          activeColor: AppColors.mainColor,
-          size: Size.square(Dimensions.ratio * 9.0),
-          activeSize: Size(Dimensions.ratio * 18.0, Dimensions.ratio * 9.0),
-          activeShape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(Dimensions.ratio * 5.0)),
-        ),
-      ),
+      GetBuilder<ProductController>(builder: (popularProduct) {
+        return DotsIndicator(
+          dotsCount: popularProduct.productList.isEmpty?1:popularProduct.productList.length,
+          position: _currentPageValue,
+          decorator: DotsDecorator(
+            activeColor: AppColors.mainColor,
+            size: Size.square(Dimensions.ratio * 9.0),
+            activeSize: Size(Dimensions.ratio * 18.0, Dimensions.ratio * 9.0),
+            activeShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Dimensions.ratio * 5.0)),
+          ),
+        );
+      }),
 
       Padding(
         padding: EdgeInsets.only(
@@ -79,13 +84,14 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           mainAxisAlignment: MainAxisAlignment.start,
 
           children: [
-            BigText(text: "Popular",size: Dimensions.ratio*20),
+            BigText(text: "Popular", size: Dimensions.ratio * 20),
             Padding(
               padding: EdgeInsets.only(
                   left: Dimensions.ratio * 10,
                   top: Dimensions.ratio * 10,
                   bottom: Dimensions.ratio * 5),
-              child: SmallText(text: "Restaurants",size: Dimensions.ratio*12),
+              child:
+                  SmallText(text: "Restaurants", size: Dimensions.ratio * 12),
             ),
           ],
         ),
@@ -102,7 +108,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   right: Dimensions.ratio * 20,
                   bottom: Dimensions.ratio * 20),
               child: Row(
-                children:[
+                children: [
                   Expanded(
                     child: Stack(
                       children: [
@@ -117,13 +123,17 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 BigText(
-                                    text: "World Famous Taj Hotel of Mumbai",size: Dimensions.ratio*20,),
+                                  text: "World Famous Taj Hotel of Mumbai",
+                                  size: Dimensions.ratio * 20,
+                                ),
                                 SizedBox(
                                   height: Dimensions.ratio * 5,
                                 ),
-                                SmallText(text: "this is the dummy text",size: Dimensions.ratio*12),
+                                SmallText(
+                                    text: "this is the dummy text",
+                                    size: Dimensions.ratio * 12),
                                 SizedBox(
-                                  height: Dimensions.ratio *10,
+                                  height: Dimensions.ratio * 10,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -268,7 +278,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                       top: Dimensions.ratio * 15,
                       left: Dimensions.ratio * 15,
                       right: Dimensions.ratio * 15),
-                  child: AppColumn(text: "Chinese Food",)),
+                  child: AppColumn(
+                    text: "Chinese Food",
+                  )),
             ),
           ),
         ],
