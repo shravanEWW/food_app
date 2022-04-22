@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/controllers/product_controller.dart';
-import 'package:food_app/pages/food/food_details.dart';
+import 'package:food_app/controllers/popular_product_controller.dart';
+import 'package:food_app/controllers/recommended_product_controller.dart';
 import 'package:food_app/pages/home/main_food_page.dart';
+import 'package:food_app/routes/route_helper.dart';
 import 'package:get/get.dart';
+
 import 'helper/dependancies.dart' as dep;
 
 Future<void> main() async {
@@ -17,14 +19,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<ProductController>().getProductList();
+    Get.find<PopularProductController>().getPopularProductList();
+    Get.find<RecommendedProductController>().getRecommendedProductList();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-     // home: FoodDetails(),
+      initialRoute: RoutHelper.initial,
+      getPages: RoutHelper.routes,
+      // home: FoodDetails(),
       //home: PopularShopDetails(),
       home: MainFoodPage(),
     );

@@ -1,18 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/utils/constants/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/app_icon.dart';
 import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/expandable_text.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../controllers/popular_product_controller.dart';
 import '../../widgets/app_column.dart';
 import '../home/colors.dart';
+import '../home/main_food_page.dart';
 
 class PopularShopDetails extends StatelessWidget {
-  const PopularShopDetails({Key? key}) : super(key: key);
+  int pageId;
+
+  PopularShopDetails({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<PopularProductController>().popularProductList[pageId];
+   // print("page id id "+pageId.toString());
+   // print("product name is "+product.name.toString());
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -28,7 +39,10 @@ class PopularShopDetails extends StatelessWidget {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage("assets/images/food1.jpg"))),
+                          image:NetworkImage(
+                            AppConstants.BASE_URL+AppConstants.UPLOAD+
+                              product.img!
+                          ))),
                 )),
             //icon widgets
             Positioned(
@@ -38,9 +52,18 @@ class PopularShopDetails extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        Get.to(() => MainFoodPage());
+                      },
+                      child: AppIcon(
+                        icon: Icons.arrow_back_ios,
+                        backgroundColor: Colors.white,
+                      ),
+                    ),
                     AppIcon(
-                        icon: Icons.arrow_back_ios, size: Dimensions.ratio * 20),
-                    AppIcon(icon: Icons.shopping_cart_outlined),
+                        icon: Icons.shopping_cart_outlined,
+                        backgroundColor: Colors.white),
                   ],
                 )),
             //introduction of food
@@ -59,7 +82,7 @@ class PopularShopDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppColumn(
-                      text: "Chinese Food",
+                      text: product.name!,
                     ),
                     SizedBox(
                       height: Dimensions.ratio * 20,
@@ -76,7 +99,7 @@ class PopularShopDetails extends StatelessWidget {
                       child: SingleChildScrollView(
                         child: ExpandableText(
                             text:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur"),
+                        product.description!)
                       ),
                     )
                   ],
@@ -160,7 +183,7 @@ class PopularShopDetails extends StatelessWidget {
                 ),
                 child: Row(children: [
                   BigText(
-                    text: "\$10.00 Add to cart",
+                    text: "\$ ${product.price!}"+" Add to cart",
                     size: Dimensions.ratio * 16,
                     color: Colors.white,
                   ),

@@ -1,30 +1,44 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/pages/home/colors.dart';
+import 'package:food_app/routes/route_helper.dart';
+import 'package:food_app/utils/constants/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/big_text.dart';
+import 'package:get/get.dart';
 
+import '../../controllers/recommended_product_controller.dart';
 import '../../widgets/app_icon.dart';
 import '../../widgets/expandable_text.dart';
 
-class FoodDetails extends StatelessWidget {
-  const FoodDetails({Key? key}) : super(key: key);
+class RecommendedFoodDetails extends StatelessWidget {
+  int pageId;
+  RecommendedFoodDetails({Key? key,required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
         body: CustomScrollView(
+
           slivers: [
+
             SliverAppBar(
+              automaticallyImplyLeading: false,
               toolbarHeight: 70,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(
-                    icon: Icons.arrow_back_ios,
-                    size: Dimensions.ratio * 40,
+                  GestureDetector(
+                onTap: (){
+                  Get.toNamed(RoutHelper.getInitial());
+                }
+                    ,child: AppIcon(
+                      icon: Icons.arrow_back_ios,
+                      size: Dimensions.ratio * 40,
+                    ),
                   ),
                   AppIcon(
                       icon: Icons.shopping_cart_outlined,
@@ -38,7 +52,7 @@ class FoodDetails extends StatelessWidget {
                   color: Colors.white,
                   child: Center(
                       child: BigText(
-                    text: "Silver App Bar",
+                    text: product.name!,
                     size: Dimensions.ratio * 26,
                   )),
                 ),
@@ -47,22 +61,28 @@ class FoodDetails extends StatelessWidget {
               backgroundColor: Colors.yellow,
               expandedHeight: Dimensions.ratio * 300,
               flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  "assets/images/food.jpg",
+                background: Image.network(
+                  AppConstants.BASE_URL+AppConstants.UPLOAD+product.img!,
                   width: double.maxFinite,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             SliverToBoxAdapter(
-              child: Container(
-                margin: EdgeInsets.only(
-                    left: Dimensions.ratio * 20, right: Dimensions.ratio * 20,bottom: Dimensions.ratio * 20),
-                child: SingleChildScrollView(
-                  child: ExpandableText(
-                      text:
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur."),
-                ),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: Dimensions.ratio * 20,
+                        top: Dimensions.ratio*20,
+                        right: Dimensions.ratio * 20,
+                        bottom: Dimensions.ratio * 20),
+                    child: ExpandableText(
+                            text:product
+                                .description!,
+                          ),
+                        )
+                ],
               ),
             ),
           ],
@@ -81,11 +101,11 @@ class FoodDetails extends StatelessWidget {
                       BoxShadow(
                           color: Colors.black45,
                           blurRadius: Dimensions.ratio * 5.0,
-                          offset:
-                              Offset(Dimensions.ratio * 5, Dimensions.ratio * 5)),
+                          offset: Offset(
+                              Dimensions.ratio * 5, Dimensions.ratio * 5)),
                     ],
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(Dimensions.ratio * 20)),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.ratio * 20)),
                   ),
                   child: Icon(
                     Icons.remove,
@@ -96,7 +116,7 @@ class FoodDetails extends StatelessWidget {
                 SizedBox(
                   width: Dimensions.ratio * 20,
                 ),
-                BigText(text: " \$10.00   X   1"),
+                BigText(text: " \$ ${product.price!}  X   0"),
                 SizedBox(
                   width: Dimensions.ratio * 20,
                 ),
@@ -108,11 +128,11 @@ class FoodDetails extends StatelessWidget {
                       BoxShadow(
                           color: Colors.black45,
                           blurRadius: Dimensions.ratio * 5.0,
-                          offset:
-                              Offset(Dimensions.ratio * 5, Dimensions.ratio * 5)),
+                          offset: Offset(
+                              Dimensions.ratio * 5, Dimensions.ratio * 5)),
                     ],
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(Dimensions.ratio * 20)),
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.ratio * 20)),
                   ),
                   child: Icon(
                     Icons.add,
@@ -173,7 +193,7 @@ class FoodDetails extends StatelessWidget {
                     ),
                     child: Row(children: [
                       BigText(
-                        text: "\$10.00 Add to cart",
+                        text: "\$${product.price!} Add to cart",
                         size: Dimensions.ratio * 16,
                         color: Colors.white,
                       ),
@@ -187,7 +207,8 @@ class FoodDetails extends StatelessWidget {
                   BoxShadow(
                       color: Colors.black12,
                       blurRadius: Dimensions.ratio * 5.0,
-                      offset: Offset(Dimensions.ratio * 5, Dimensions.ratio * 5)),
+                      offset:
+                          Offset(Dimensions.ratio * 5, Dimensions.ratio * 5)),
                 ],
                 borderRadius:
                     BorderRadius.all(Radius.circular(Dimensions.ratio * 30)),

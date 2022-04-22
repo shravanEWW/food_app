@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/utils/dimensions.dart';
+import 'package:food_app/widgets/app_icon.dart';
 import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/small_text.dart';
 
@@ -58,10 +59,10 @@ class _MainFoodPageState extends State<MainFoodPage> {
                               BorderRadius.circular(Dimensions.ratio * 15),
                           color: AppColors.mainColor,
                         ),
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: Dimensions.ratio * 15,
+                        child: AppIcon(
+                          icon: Icons.search,
+                          iconColor: Colors.white,
+                          backgroundColor: AppColors.mainColor,
                         ),
                       ),
                     )
@@ -69,7 +70,8 @@ class _MainFoodPageState extends State<MainFoodPage> {
                 ),
               ),
             ),
-            Expanded(child: SingleChildScrollView(
+            Expanded(
+                child: SingleChildScrollView(
               child: FoodPageBody(),
             ))
           ],

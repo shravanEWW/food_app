@@ -37,7 +37,11 @@ class _ExpandableTextState extends State<ExpandableText> {
   Widget build(BuildContext context) {
     return Container(
       child: secondHalf.isEmpty
-          ? SmallText(text: firstHalf)
+          ? SmallText(
+              text: firstHalf,
+              height: Dimensions.ratio * 1.5,
+              color: AppColors.paraColor,
+            )
           : Column(
               children: [
                 SmallText(
@@ -56,7 +60,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                   child: Row(
                     children: [
                       SmallText(
-                        size: Dimensions.ratio *16,
+                        size: Dimensions.ratio * 16,
                         text: hiddenText ? "show more" : "show less",
                         color: AppColors.mainColor,
                       ),
@@ -65,7 +69,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                             ? Icons.arrow_drop_down
                             : Icons.arrow_drop_up,
                         color: AppColors.mainColor,
-                        size: Dimensions.ratio *16,
+                        size: Dimensions.ratio * 16,
                       )
                     ],
                   ),
