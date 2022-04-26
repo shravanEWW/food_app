@@ -26,7 +26,7 @@ class RoutHelper {
         name: popularFood,
         page: () {
           var pageId = Get.parameters['pageId'];
-          return PopularShopDetails( pageId: int.parse(pageId!));
+          return PopularShopDetails(pageId: int.parse(pageId!));
         },
         transition: Transition.zoom),
     GetPage(

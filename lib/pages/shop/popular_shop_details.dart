@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/controllers/CartController.dart';
+import 'package:food_app/pages/cart/cart_page.dart';
 import 'package:food_app/utils/constants/app_constants.dart';
 import 'package:food_app/utils/dimensions.dart';
 import 'package:food_app/widgets/app_icon.dart';
 import 'package:food_app/widgets/big_text.dart';
 import 'package:food_app/widgets/expandable_text.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../controllers/popular_product_controller.dart';
 import '../../widgets/app_column.dart';
@@ -24,7 +23,7 @@ class PopularShopDetails extends StatelessWidget {
     var product =
         Get.find<PopularProductController>().popularProductList[pageId];
     Get.find<PopularProductController>()
-        .initProduct(Get.find<CartController>());
+        .initProduct(product, Get.find<CartController>());
     // print("page id id "+pageId.toString());
     // print("product name is "+product.name.toString());
 
@@ -59,14 +58,50 @@ class PopularShopDetails extends StatelessWidget {
                     onTap: () {
                       Get.to(() => MainFoodPage());
                     },
-                    child: AppIcon(
+                    child: const AppIcon(
                       icon: Icons.arrow_back_ios,
                       backgroundColor: Colors.white,
                     ),
                   ),
-                  AppIcon(
-                      icon: Icons.shopping_cart_outlined,
-                      backgroundColor: Colors.white),
+                  GetBuilder<PopularProductController>(builder: (controller) {
+                    return Stack(
+                      children: [
+                        AppIcon(
+                            icon: Icons.shopping_cart_outlined,
+                            backgroundColor: Colors.white),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 0,
+                                top: 0,
+                                child: GestureDetector(
+                                  onTap: (){
+                                    Get.to(()=>CartPage());
+                                  }
+                                  ,child: AppIcon(
+                                    icon: Icons.shopping_cart_outlined,
+                                    backgroundColor: AppColors.iconColor2,
+                                    size: Dimensions.ratio * 20,
+                                    iconColor: Colors.transparent,
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        Get.find<PopularProductController>().totalItems >= 1
+                            ? Positioned(
+                                right: 5 * Dimensions.ratio,
+                                top: 3.4 * Dimensions.ratio,
+                                child: BigText(
+                                  text: Get.find<PopularProductController>()
+                                      .totalItems
+                                      .toString(),
+                                  size: Dimensions.ratio * 12,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Container()
+                      ],
+                    );
+                  })
                 ],
               )),
           //introduction of food
@@ -157,7 +192,7 @@ class PopularShopDetails extends StatelessWidget {
                     width: Dimensions.ratio * 10,
                   ),
                   BigText(
-                    text: popularProduct.quantity.toString(),
+                    text: popularProduct.inCartItems.toString(),
                     color: AppColors.mainColor,
                   ),
                   SizedBox(
@@ -174,35 +209,34 @@ class PopularShopDetails extends StatelessWidget {
                   ),
                 ]),
               ),
-              Container(
-                height: Dimensions.ratio * 50,
-                margin: EdgeInsets.all(Dimensions.ratio * 30),
-                padding: EdgeInsets.all(Dimensions.ratio * 15),
-                decoration: BoxDecoration(
-                  color: AppColors.mainColor,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black45,
-                        blurRadius: Dimensions.ratio * 5.0,
-                        offset:
-                            Offset(Dimensions.ratio * 0, Dimensions.ratio * 5)),
-                  ],
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(Dimensions.ratio * 20)),
-                ),
-                child: Row(children: [
-                  GestureDetector(
-                  onTap: (){
+              GestureDetector(
+                  onTap: () {
                     popularProduct.addItem(product);
-                  }
-                  ,child: BigText(
-                      text: "\$ ${product.price!}" + " Add to cart",
-                      size: Dimensions.ratio * 16,
-                      color: Colors.white,
+                  },
+                  child: Container(
+                    height: Dimensions.ratio * 50,
+                    margin: EdgeInsets.all(Dimensions.ratio * 30),
+                    padding: EdgeInsets.all(Dimensions.ratio * 15),
+                    decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black45,
+                            blurRadius: Dimensions.ratio * 5.0,
+                            offset: Offset(
+                                Dimensions.ratio * 0, Dimensions.ratio * 5)),
+                      ],
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(Dimensions.ratio * 20)),
                     ),
-                  ),
-                ]),
-              )
+                    child: Row(children: [
+                      BigText(
+                        text: "\$ ${product.price!}" + " Add to cart",
+                        size: Dimensions.ratio * 16,
+                        color: Colors.white,
+                      ),
+                    ]),
+                  )),
             ],
           ),
           decoration: BoxDecoration(
