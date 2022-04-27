@@ -3,7 +3,7 @@ import 'package:food_app/controllers/CartController.dart';
 import 'package:food_app/data/repository/popular_product_repo.dart';
 import 'package:food_app/models/cart_model.dart';
 import 'package:food_app/models/products_model.dart';
-import 'package:food_app/pages/home/colors.dart';
+import 'package:food_app/utils/colors.dart';
 import 'package:get/get.dart';
 
 class PopularProductController extends GetxController {
@@ -19,7 +19,6 @@ class PopularProductController extends GetxController {
 
   bool get isLoaded => _isLoaded;
   int _inCartItems = 0;
-
   int get inCartItems => _inCartItems + _quantity;
 
   int _quantity = 0;
@@ -28,14 +27,14 @@ class PopularProductController extends GetxController {
 
   Future<void> getPopularProductList() async {
     Response response = await popularProductRepo.getPopularProductList();
-    print("Success launcher" + response.statusCode.toString());
+    //print("Success launcher" + response.statusCode.toString());
     if (response.statusCode == 200) {
       _popularProductList = [];
       _popularProductList.addAll(Product.fromJson(response.body).products);
       _isLoaded = true;
       update();
     } else {
-      print("failed launcher" + response.statusCode.toString());
+    //  print("failed launcher" + response.statusCode.toString());
     }
   }
 
@@ -49,18 +48,18 @@ class PopularProductController extends GetxController {
   }
 
   int checkQuantity(int quantity) {
-    if (_inCartItems + quantity < 0) {
+    if ((_inCartItems + quantity) < 0) {
       Get.snackbar("Item Count", "you can not remove more !",
-          backgroundColor: AppColors.mainColor, colorText: Colors.white);
+          backgroundColor: AppColors.iconColor2, colorText: Colors.white);
     if(_inCartItems>0){
       _quantity = -_inCartItems;
       return _quantity;
     }
       return 0;
-    } else if (_inCartItems + quantity > 100) {
+    } else if ((_inCartItems + quantity) > 20) {
       Get.snackbar("Item Count", "you can not add more !",
-          backgroundColor: AppColors.mainColor, colorText: Colors.white);
-      return 100;
+          backgroundColor: AppColors.iconColor2, colorText: Colors.white);
+      return 20;
     } else {
       return quantity;
     }
@@ -76,7 +75,7 @@ class PopularProductController extends GetxController {
     if (exist) {
       _inCartItems = _cart.getQuantity(product);
     }
-    print("the quantity in the cart is " + _inCartItems.toString());
+  //  print("the quantity in the cart is " + _inCartItems.toString());
   }
 
   void addItem(ProductModel product) {

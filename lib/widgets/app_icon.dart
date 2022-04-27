@@ -11,8 +11,8 @@ class AppIcon extends StatelessWidget {
   const AppIcon(
       {Key? key,
       required this.icon,
-      this.backgroundColor = const Color(0xFFffffff),
-      this.iconColor = const Color(0xFF756d56),
+      this.backgroundColor = const Color(0xFFff0040),
+      this.iconColor = const Color(0xffffffff),
       this.size = 40})
       : super(key: key);
 

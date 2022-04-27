@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 
 import '../../routes/route_helper.dart';
 import '../../utils/dimensions.dart';
-import 'colors.dart';
+import '../../utils/colors.dart';
 
 class FoodPageBody extends StatefulWidget {
   const FoodPageBody({Key? key}) : super(key: key);
@@ -116,7 +116,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Get.toNamed(RoutHelper.getRecommendedFood(index));
+                      Get.toNamed(RoutHelper.getRecommendedFood(index,"home"));
                     },
                     child: Container(
                       margin: EdgeInsets.only(
@@ -173,12 +173,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                                 icon: Icons.location_on,
                                                 text: "1.7km",
                                                 size: Dimensions.ratio * 20,
-                                                iconColor: AppColors.mainColor),
+                                                iconColor: AppColors.iconColor2),
                                             IconAndTextWidget(
                                                 icon: Icons.access_time_rounded,
                                                 text: "32min",
                                                 size: Dimensions.ratio * 20,
-                                                iconColor: AppColors.iconColor2)
+                                                iconColor: AppColors.iconColor3)
                                           ],
                                         )
                                       ],
@@ -276,7 +276,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         children: [
           GestureDetector(
             onTap: () {
-              Get.toNamed(RoutHelper.getPopularFood(index));
+              Get.toNamed(RoutHelper.getPopularFood(index,"home"));
             },
             child: Container(
               height: Dimensions.ratio * 220,

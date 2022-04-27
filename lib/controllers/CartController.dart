@@ -4,7 +4,7 @@ import 'package:food_app/models/products_model.dart';
 import 'package:get/get.dart';
 
 import '../models/cart_model.dart';
-import '../pages/home/colors.dart';
+import '../utils/colors.dart';
 
 class CartController extends GetxController {
   final CartRepo cartRepo;
@@ -45,13 +45,16 @@ class CartController extends GetxController {
             isExist: true,
             img: product.img,
             time: DateTime.now().toString(),
+            product:product,
+
           );
         });
       } else {
         Get.snackbar("Item Count", "you should at least add an item in cart !",
-            backgroundColor: AppColors.mainColor, colorText: Colors.white);
+            backgroundColor: AppColors.iconColor2, colorText: Colors.white);
       }
     }
+    update();
   }
 
   existInCart(ProductModel product) {

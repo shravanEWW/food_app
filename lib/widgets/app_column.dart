@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/widgets/small_text.dart';
 
-import '../pages/home/colors.dart';
+import '../utils/colors.dart';
 import '../utils/dimensions.dart';
 import 'big_text.dart';
 import 'icon_and_text_widget.dart';
@@ -59,12 +59,12 @@ class AppColumn extends StatelessWidget {
                 icon: Icons.location_on,
                 text: "1.7km",
                 size: Dimensions.ratio * 25,
-                iconColor: AppColors.mainColor),
+                iconColor: AppColors.iconColor2),
             IconAndTextWidget(
                 icon: Icons.access_time_rounded,
                 text: "32min",
                 size: Dimensions.ratio * 25,
-                iconColor: AppColors.iconColor2)
+                iconColor: AppColors.iconColor3)
           ],
         )
       ],
