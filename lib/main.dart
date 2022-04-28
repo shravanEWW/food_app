@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_app/controllers/CartController.dart';
 import 'package:food_app/controllers/popular_product_controller.dart';
 import 'package:food_app/controllers/recommended_product_controller.dart';
-import 'package:food_app/models/cart_model.dart';
-import 'package:food_app/pages/home/main_food_page.dart';
 import 'package:food_app/routes/route_helper.dart';
 import 'package:get/get.dart';
 
-import 'helper/dependancies.dart' as dep;
+import 'helper/dependencies.dart' as dep;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,16 +18,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.find<PopularProductController>().getPopularProductList();
-    Get.find<RecommendedProductController>().getRecommendedProductList();
-    Get.find<CartController>().totalItems;
-
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      initialRoute: RoutHelper.initial,
-      getPages: RoutHelper.routes,
-      home: MainFoodPage(),
-    );
+    return GetBuilder<PopularProductController>(builder: (_) {
+      return GetBuilder<RecommendedProductController>(builder: (_) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          initialRoute: RoutHelper.getSplashPage(),
+          getPages: RoutHelper.routes,
+          // home: SplashScreen(),
+        );
+      });
+    });
   }
 }

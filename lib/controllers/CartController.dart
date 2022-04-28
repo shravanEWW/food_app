@@ -45,8 +45,7 @@ class CartController extends GetxController {
             isExist: true,
             img: product.img,
             time: DateTime.now().toString(),
-            product:product,
-
+            product: product,
           );
         });
       } else {
@@ -54,6 +53,7 @@ class CartController extends GetxController {
             backgroundColor: AppColors.iconColor2, colorText: Colors.white);
       }
     }
+    cartRepo.addToCartList(getItems);
     update();
   }
 
@@ -88,5 +88,13 @@ class CartController extends GetxController {
     return _items.entries.map((e) {
       return e.value;
     }).toList();
+  }
+
+  int get totalAmount {
+    var total = 0;
+    _items.forEach((key, value) {
+      total = value.quantity! * value.price!;
+    });
+    return total;
   }
 }

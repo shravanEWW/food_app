@@ -6,5 +6,5 @@ class AppConstants {
   static const String RECOMMENDED_PRODUCT_URL = "api/v1/products/recommended";
   static const String TOKEN = "DBtoken";
   static const String UPLOAD = "/uploads/";
-// static const String APP_NAME = "FoodApp";
+ static const String CART_LIST = "Cart-list";
 }

@@ -228,6 +228,84 @@ class CartPage extends StatelessWidget {
               ))
         ],
       ),
+      bottomNavigationBar:
+      GetBuilder<CartController>(builder: (cartController) {
+        return Container(
+          padding: EdgeInsets.all(Dimensions.ratio*15),
+          margin: EdgeInsets.only(
+              bottom: Dimensions.ratio * 5,
+              right: Dimensions.ratio * 5,
+              left: Dimensions.ratio * 1),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+
+                padding: EdgeInsets.all(Dimensions.ratio * 15),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black45,
+                        blurRadius: Dimensions.ratio * 5.0,
+                        offset:
+                        Offset(Dimensions.ratio * 5, Dimensions.ratio * 5)),
+                  ],
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(Dimensions.ratio * 20)),
+                ),
+                child:
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+
+                  BigText(
+                    text: "\$ " + cartController.totalAmount.toString(),
+                    color: AppColors.mainColor,
+                    size: Dimensions.ratio*18,
+                  ),
+
+                ]),
+              ),
+              GestureDetector(
+                  onTap: () {
+                  //  popularProduct.addItem(product);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(Dimensions.ratio * 15),
+                    decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black45,
+                            blurRadius: Dimensions.ratio * 5.0,
+                            offset: Offset(
+                                Dimensions.ratio * 0, Dimensions.ratio * 5)),
+                      ],
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(Dimensions.ratio * 20)),
+                    ),
+                    child: Row(children: [
+                      BigText(
+                        text: "Checkout",
+                        size: Dimensions.ratio * 16,
+                        color: Colors.white,
+                      ),
+                    ]),
+                  )),
+            ],
+          ),
+          decoration: BoxDecoration(
+            color: AppColors.backGroundColor,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: Dimensions.ratio * 5.0,
+                  offset: Offset(Dimensions.ratio * 5, Dimensions.ratio * 5)),
+            ],
+            borderRadius:
+            BorderRadius.all(Radius.circular(Dimensions.ratio * 30)),
+          ),
+        );
+      }),
     );
   }
 }
