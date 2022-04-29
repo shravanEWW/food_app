@@ -76,7 +76,7 @@ class CartPage extends StatelessWidget {
                           itemCount: _cartList.length,
                           itemBuilder: (_, index) {
                             return Container(
-                              height: 100 * Dimensions.ratio,
+
                               width: double.maxFinite,
                               //color: Colors.blue,
                               margin: EdgeInsets.all(Dimensions.ratio * 10),
@@ -148,8 +148,7 @@ class CartPage extends StatelessWidget {
                                               color: Colors.redAccent,
                                             ),
                                             Container(
-                                              height: Dimensions.ratio * 40,
-                                              width: Dimensions.ratio * 100,
+
                                               padding: EdgeInsets.all(
                                                   Dimensions.ratio * 5),
                                               decoration: BoxDecoration(
@@ -175,10 +174,7 @@ class CartPage extends StatelessWidget {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        cartController.addItem(
-                                                            _cartList[index]
-                                                                .product!,
-                                                            -1);
+                                                        cartController.addItem(_cartList[index].product!, -1);
                                                       },
                                                       child: Icon(
                                                         Icons.remove,

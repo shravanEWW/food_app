@@ -60,8 +60,8 @@ class CartModel {
     price = json['price'];
     isExist = json['isExist'];
     img = json['img'];
-    time = json['time'];
     product = ProductModel.fromJson(json['product']);
+    time = json['time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -72,8 +72,8 @@ class CartModel {
       "price": this.price,
       "isExist": this.isExist,
       "img": this.img,
+      "product": product!.toJson(),
       "time": this.time,
-      "product": this.product!.toJson(),
     };
   }
 }

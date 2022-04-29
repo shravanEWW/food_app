@@ -60,26 +60,26 @@ class _HomePageState extends State<HomePage> {
         ),
         title: ("history"),
         activeColorSecondary: Colors.white,
-        activeColorPrimary: AppColors.iconColor5,
-        inactiveColorPrimary: AppColors.iconColor5,
+        activeColorPrimary: AppColors.iconColor4,
+        inactiveColorPrimary: AppColors.iconColor4,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(
+        icon: const Icon(
           CupertinoIcons.cart
         ),
         title: ("cart"),
         activeColorSecondary: Colors.white,
-        activeColorPrimary: AppColors.iconColor6,
-        inactiveColorPrimary: AppColors.iconColor6,
+        activeColorPrimary: AppColors.iconColor4,
+        inactiveColorPrimary: AppColors.iconColor4,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(
+        icon: const Icon(
           CupertinoIcons.person,
         ),
         title: ("me"),
         activeColorSecondary: Colors.white,
-        activeColorPrimary: AppColors.iconColor7,
-        inactiveColorPrimary: AppColors.iconColor7,
+        activeColorPrimary: AppColors.iconColor4,
+        inactiveColorPrimary: AppColors.iconColor4,
       ),
     ];
   }
@@ -137,12 +137,12 @@ class _HomePageState extends State<HomePage> {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
+      itemAnimationProperties: const ItemAnimationProperties(
         // Navigation Bar's items animation properties.
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
+      screenTransitionAnimation: const ScreenTransitionAnimation(
         // Screen transition animation on change of selected tab.
         animateTabTransition: true,
         curve: Curves.ease,

@@ -80,6 +80,7 @@ class PopularProductController extends GetxController {
 
   void addItem(ProductModel product) {
     _cart.addItem(product, _quantity);
+    _inCartItems = _inCartItems+_quantity;
     _quantity = 0;
     _cart.items.forEach((key, value) {
       print("The id is " +

@@ -1,5 +1,3 @@
-
-
 /// total_size : 6
 /// type_id : 2
 /// offset : 0
@@ -69,16 +67,17 @@ class ProductModel {
     updatedAt = json['updated_at'];
     typeId = json['type_id'];
   }
-  Map<String, dynamic> toJson(){
-    return{
-      "id" : this.id,
-      "name" : this.name,
-     // "description":this.description,
-      "price" : this.price,
-      "img" : this.img,
-      "location" : this.location,
-      "createdAt" : this.createdAt,
-      "typeId" : this.typeId,
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": this.id,
+      "name": this.name,
+      "price": this.price,
+      "img": this.img,
+      "location": this.location,
+      "createdAt": this.createdAt,
+      "updatedAt": this.updatedAt,
+      "typeId": this.typeId,
     };
   }
 }
